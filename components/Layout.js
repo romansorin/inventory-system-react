@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Header from './Header'
 
 const Layout = ({
   children,
@@ -14,6 +15,7 @@ const Layout = ({
       <link rel='icon' href='/favicon.ico' />
       <link rel='stylesheet' href='https://rsms.me/inter/inter.css' />
     </Head>
+    <Header />
     <main>{children}</main>
   </>
 )
