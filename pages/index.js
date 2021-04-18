@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import axios from 'axios'
 
 function Home ({ items }) {
   return (
@@ -21,8 +22,12 @@ function Home ({ items }) {
 }
 
 export async function getStaticProps () {
-  const res = await fetch('http://127.0.0.1:8000/api/items')
-  const items = await res.json()
+  const items = await axios
+    .get('http://127.0.0.1:8000/api/items')
+    .then(response => response.data)
+    .catch(error => {
+      throw error
+    })
 
   return {
     props: {
