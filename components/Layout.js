@@ -16,7 +16,9 @@ const Layout = ({
       <link rel='stylesheet' href='https://rsms.me/inter/inter.css' />
     </Head>
     <Header />
-    <main>{children}</main>
+    <main>
+      <div className='max-w-7xl mx-auto sm:px-6 lg:px-8 my-24'>{children}</div>
+    </main>
   </>
 )
 
