@@ -36,7 +36,7 @@ const ItemTable = ({ items }) => {
       </thead>
       <tbody>
         {items.map((item, i) => (
-          <Item key={item.id} isEven={i % 2 === 0} item={item} />
+          <Item key={item.id} item={item} />
         ))}
       </tbody>
     </table>

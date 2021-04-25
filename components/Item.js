@@ -1,6 +1,6 @@
-const Item = ({ isEven, item }) => {
+const Item = ({ item }) => {
   return (
-    <tr className={`${isEven ? 'bg-gray-50' : 'bg-white'}`}>
+    <tr className='bg-white'>
       <td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
         {item.description}
       </td>
