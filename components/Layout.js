@@ -1,7 +1,7 @@
-import { Disclosure, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useState } from 'react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
+import { Disclosure } from '@headlessui/react'
 import Head from 'next/head'
 
 const navigation = [
@@ -28,12 +28,14 @@ const Layout = ({
   description = 'An inventory system built on Next and Django'
 }) => {
   const [heading, setHeading] = useState('')
+  const [activeLink, setActiveLink] = useState('')
 
   useEffect(() => {
     const pageHeading =
       navigation.find(item => item.link === window.location.pathname)
         ?.headingText ?? 'Inventory'
     setHeading(pageHeading)
+    setActiveLink(window.location.pathname)
   }, [navigation])
   return (
     <>
@@ -62,27 +64,21 @@ const Layout = ({
                     </div>
                     <div className='hidden md:block'>
                       <div className='ml-10 flex items-baseline space-x-4'>
-                        {navigation.map((item, itemIdx) =>
-                          itemIdx === 0 ? (
-                            <Fragment key={item.headerText}>
-                              {/* Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" */}
-                              <a
-                                href={`/${item.link}`}
-                                className='bg-indigo-700 text-white px-3 py-2 rounded-md text-sm font-medium'
-                              >
-                                {item.headerText}
-                              </a>
-                            </Fragment>
-                          ) : (
+                        {navigation.map(item => (
+                          <Fragment key={item.headerText}>
                             <a
-                              key={item.headerText}
-                              href={`/${item.link}`}
-                              className='text-white hover:bg-indigo-500 hover:bg-opacity-75 px-3 py-2 rounded-md text-sm font-medium'
+                              href={`${item.link}`}
+                              className={classNames(
+                                activeLink === item.link
+                                  ? 'bg-indigo-700 text-white'
+                                  : 'text-white hover:bg-indigo-500 hover:bg-opacity-75',
+                                'px-3 py-2 rounded-md text-sm font-medium'
+                              )}
                             >
                               {item.headerText}
                             </a>
-                          )
-                        )}
+                          </Fragment>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -105,27 +101,21 @@ const Layout = ({
 
               <Disclosure.Panel className='md:hidden'>
                 <div className='px-2 pt-2 pb-3 space-y-1 sm:px-3'>
-                  {navigation.map((item, itemIdx) =>
-                    itemIdx === 0 ? (
-                      <Fragment key={item.headerText}>
-                        {/* Current: "bg-indigo-700 text-white", Default: "text-white hover:bg-indigo-500 hover:bg-opacity-75" */}
-                        <a
-                          href={`/${item.link}`}
-                          className='bg-indigo-700 text-white block px-3 py-2 rounded-md text-base font-medium'
-                        >
-                          {item.headerText}
-                        </a>
-                      </Fragment>
-                    ) : (
+                  {navigation.map(item => (
+                    <Fragment key={item.headerText}>
                       <a
-                        key={item}
-                        href='#'
-                        className='text-white hover:bg-indigo-500 hover:bg-opacity-75 block px-3 py-2 rounded-md text-base font-medium'
+                        href={`${item.link}`}
+                        className={classNames(
+                          activeLink === item.link
+                            ? 'bg-indigo-700 text-white'
+                            : 'text-white hover:bg-indigo-500 hover:bg-opacity-75',
+                          'px-3 py-2 rounded-md text-base font-medium'
+                        )}
                       >
-                        {item}
+                        {item.headerText}
                       </a>
-                    )
-                  )}
+                    </Fragment>
+                  ))}
                 </div>
               </Disclosure.Panel>
             </>
